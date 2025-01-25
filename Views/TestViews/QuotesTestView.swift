@@ -54,9 +54,9 @@ struct QuotesTestView: View
     
 }
 
-//#Preview
-//{
-//    var schwabClient = SchwabClient( secrets: getSecretsFromFile() )
-//    QuotesTestView( schwabClient : schwabClient )
-//}
+#Preview
+{
+    var schwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    return QuotesTestView( schwabClient : schwabClient )
+}
 

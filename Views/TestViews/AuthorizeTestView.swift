@@ -28,7 +28,7 @@ struct AuthorizeTestView: View
         VStack
         {
             Link( authenticateButtonTitle
-                  , destination: URL( string: self.schwabClient.secrets.authorizationUrl )! )
+                  , destination: authenticateButtonUrl )
             .disabled( !authenticateButtonEnabled )
             .opacity( !authenticateButtonEnabled ? 0 : 1 )
             .onAppear
@@ -39,9 +39,9 @@ struct AuthorizeTestView: View
                     switch result
                     {
                     case .success( let url ):
-                        print( "Authentication URL: \(url)" )
+                        print( "Authentication URL: \(url.absoluteString)" )
                         authenticateButtonEnabled = true
-                        self.schwabClient.secrets.authorizationUrl = url.absoluteString
+                        authenticateButtonUrl = url
                     case .failure(let error):
                         print("Authentication failed: \(error)")
                     }
@@ -76,8 +76,8 @@ struct AuthorizeTestView: View
     }
 }
 
-//#Preview
-//{
-//    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
-//    AuthorizeTestView( schwabClient : schwabClient )
-//}
+#Preview
+{
+    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    return AuthorizeTestView( schwabClient : schwabClient )
+}

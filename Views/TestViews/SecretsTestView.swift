@@ -24,16 +24,6 @@ struct SecretsTestView: View
         {
             HStack
             {
-                Text( "Authorization URL: " )
-                TextField( "Authorization URL", text: $schwabClient.secrets.authorizationUrl )
-            }
-            HStack
-            {
-                Text( "Access Token URL: " )
-                TextField( "Access Token URL", text: $schwabClient.secrets.accessTokenUrl )
-            }
-            HStack
-            {
                 Text( "App Key: " )
                 TextField( "App Key", text: $schwabClient.secrets.appId )
             }
@@ -85,8 +75,8 @@ struct SecretsTestView: View
 
 }
 
-//#Preview
-//{
-//    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
-//    SecretsTestView( schwabClient : schwabClient )
-//}
+#Preview
+{
+    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    return SecretsTestView( schwabClient : schwabClient )
+}

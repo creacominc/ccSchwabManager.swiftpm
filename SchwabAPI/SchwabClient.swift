@@ -2,6 +2,10 @@
 import Foundation
 import AuthenticationServices
 
+let schwabWeb           : String = "https://api.schwabapi.com"
+let authorizationWeb    : String = "\(schwabWeb)/v1/oauth/authorize"
+let accessTokenWeb      : String = "\(schwabWeb)v1/oauth/token"
+
 /**
    SchwabClient - interaction with Schwab web site.
     Members:
@@ -12,9 +16,9 @@ import AuthenticationServices
  */
 class SchwabClient
 {
-    internal var secrets : Secrets
-    private var accounts : [SapiAccount] = []
-    
+    var secrets : Secrets
+    var accounts : [SapiAccount] = []
+
     init( secrets: Secrets )
     {
         self.secrets = secrets
@@ -26,7 +30,7 @@ class SchwabClient
     func getAuthenticationUrl(completion: @escaping (Result<URL, ErrorCodes>) -> Void)
     {
         // provide the URL for authentication.
-        let AUTHORIZE_URL : String  = "\(self.secrets.authorizationUrl)?client_id=\(self.secrets.appId)&redirect_uri=\(self.secrets.redirectUrl)"
+        let AUTHORIZE_URL : String  = "\(authorizationWeb)?client_id=\(self.secrets.appId)&redirect_uri=\(self.secrets.redirectUrl)"
         guard let url = URL( string: AUTHORIZE_URL ) else {
             completion(.failure(.invalidResponse))
             return
@@ -51,7 +55,7 @@ class SchwabClient
         //        print( "session: \(self.secrets.session)" )
         
         // Access Token Request
-        let url = URL( string: "\(self.secrets.accessTokenUrl)" )!
+        let url = URL( string: "\(accessTokenWeb)" )!
         //        print( "accessTokenUrl: \(url)" )
         var accessTokenRequest = URLRequest( url: url )
         accessTokenRequest.httpMethod = "POST"
@@ -94,7 +98,7 @@ class SchwabClient
     {
         guard !self.secrets.accessToken.isEmpty else { return }
         print( "In fetchAccountNumbers" )
-        var request = URLRequest(url: URL(string: "https://api.schwabapi.com/trader/v1/accounts/accountNumbers")!)
+        var request = URLRequest(url: URL(string: "\(schwabWeb)/trader/v1/accounts/accountNumbers")!)
         request.setValue("Bearer \(self.secrets.accessToken)", forHTTPHeaderField: "Authorization")
         print( "AccessToken: \(self.secrets.accessToken)" )
         URLSession.shared.dataTask(with: request)

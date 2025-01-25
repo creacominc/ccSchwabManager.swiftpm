@@ -11,8 +11,6 @@ struct Secrets: Codable
 {
     init()
     {
-        authorizationUrl    = ""
-        accessTokenUrl      = ""
         appId               = ""
         appSecret           = ""
         redirectUrl         = ""
@@ -24,8 +22,6 @@ struct Secrets: Codable
         accountHashes       = []
     }
 
-    var authorizationUrl    : String
-    var accessTokenUrl      : String
     var appId               : String
     var appSecret           : String
     var redirectUrl         : String

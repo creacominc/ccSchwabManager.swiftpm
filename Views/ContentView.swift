@@ -37,78 +37,10 @@ struct ContentView: View
             WorkflowButtonsView()
             AccountsView(schwabClient: self.schwabClient)
         }
-        
-//        NavigationSplitView
-//        {
-//
-//            NavView()
-//
-//        }
-//        detail:
-//        {
-//
-//            VStack {
-//                Button( testButtonTitle )
-//                {
-//                    runTest()
-////                    let schwabClient = SchwabClient()
-////                    testButtonTitle = "pressed"
-////                    schwabClient.authenticate
-////                    { (result : Result< URL, ErrorCodes>) in
-////
-////                        switch result
-////                        {
-////                            case .success( let url ):
-////                                print( "authenticated" )
-////                                testButtonEnabled = false
-////                                authenticateButtonEnabled = true
-////                                authenticateButtonTitle = "Authenticated"
-////                                authenticateButtonUrl = url
-////                            case .failure(let error):
-////                                print("Authentication failed: \(error)")
-////                        }
-////
-////                    }
-//                }
-//                .disabled( !testButtonEnabled )
-//
-//
-//            }
-//
-//        }
+
 
     }
-//    
-//
-//    private func runTest()
-//    {
-//        print( "\n\n\n start test" )
-//        /** @TODO:  put secrets in the env file.  */
-//        @Environment(\.openURL) var openURL
-//
-//        testButtonTitle = "pressed"
-//        schwabClient.getAuthenticationUrl
-//        { (result : Result< URL, ErrorCodes>) in
-//
-//            switch result
-//            {
-//                case .success( let url ):
-//                    print( "authenticated" )
-//                    testButtonEnabled = false
-//                    authenticateButtonEnabled = true
-//                    authenticateButtonTitle = "Authenticated"
-//                    authenticateButtonUrl = url
-//                    openURL( url )
-//                case .failure(let error):
-//                    print("Authentication failed: \(error)")
-//            }
-//
-//        }
-//
-//        print( "\n end test \n\n\n" )
-//
-//    }
-    
+
 }
 
 //#Preview

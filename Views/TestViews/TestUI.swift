@@ -34,9 +34,9 @@ struct TestUI: View
 
 
 
-//#Preview
-//{
-//    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
-//    TestUI( schwabClient : schwabClient )
-//}
+#Preview
+{
+    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    return TestUI( schwabClient : schwabClient )
+}
 
