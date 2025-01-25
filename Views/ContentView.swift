@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  ccPositionManager
+//  ccSchwabManager
 //
 //  Created by Harold Tomlinson on 2024-12-21.
 //
@@ -16,12 +16,13 @@ struct ContentView: View
 
     @Environment(\.modelContext) private var context
 
-    @State private var workflowEnum : WorkflowEnum = WorkflowEnum.allCases.first!
-    @State private var testButtonTitle : String = "Test"
-    @State private var testButtonEnabled : Bool = true
-    @State private var authenticateButtonEnabled : Bool = false
-    @State private var authenticateButtonTitle : String = "Authenticate on Web"
-    @State private var authenticateButtonUrl : URL = URL(string: "https://127.0.0.1")!
+    @State private var appState : AppState = AppState.allCases.first!
+//    @State private var workflowEnum : WorkflowEnum = WorkflowEnum.allCases.first!
+//    @State private var testButtonTitle : String = "Test"
+//    @State private var testButtonEnabled : Bool = false
+//    @State private var authenticateButtonEnabled : Bool = false
+//    @State private var authenticateButtonTitle : String = "Authenticate on Web"
+//    @State private var authenticateButtonUrl : URL = URL(string: "https://127.0.0.1")!
 
     init( schwabClient: SchwabClient )
     {
@@ -31,80 +32,82 @@ struct ContentView: View
     var body: some View
     {
 
-        NavigationSplitView
+        VStack
         {
-
-            NavView()
-
+            WorkflowButtonsView()
+            AccountsView(schwabClient: self.schwabClient)
         }
-        detail:
-        {
-
-            VStack {
-                Button( testButtonTitle )
-                {
-                    runTest()
-//                    let schwabClient = SchwabClient()
-//                    testButtonTitle = "pressed"
-//                    schwabClient.authenticate
-//                    { (result : Result< URL, ErrorCodes>) in
+        
+//        NavigationSplitView
+//        {
 //
-//                        switch result
-//                        {
-//                            case .success( let url ):
-//                                print( "authenticated" )
-//                                testButtonEnabled = false
-//                                authenticateButtonEnabled = true
-//                                authenticateButtonTitle = "Authenticated"
-//                                authenticateButtonUrl = url
-//                            case .failure(let error):
-//                                print("Authentication failed: \(error)")
-//                        }
+//            NavView()
 //
-//                    }
-                }
-                .disabled( !testButtonEnabled )
-
-                Link( authenticateButtonTitle, destination: authenticateButtonUrl )
-                    .disabled( !authenticateButtonEnabled )
-                    .opacity( !authenticateButtonEnabled ? 0 : 1 )
-
-                Text( "\($workflowEnum)" )
-            }
-
-        }
+//        }
+//        detail:
+//        {
+//
+//            VStack {
+//                Button( testButtonTitle )
+//                {
+//                    runTest()
+////                    let schwabClient = SchwabClient()
+////                    testButtonTitle = "pressed"
+////                    schwabClient.authenticate
+////                    { (result : Result< URL, ErrorCodes>) in
+////
+////                        switch result
+////                        {
+////                            case .success( let url ):
+////                                print( "authenticated" )
+////                                testButtonEnabled = false
+////                                authenticateButtonEnabled = true
+////                                authenticateButtonTitle = "Authenticated"
+////                                authenticateButtonUrl = url
+////                            case .failure(let error):
+////                                print("Authentication failed: \(error)")
+////                        }
+////
+////                    }
+//                }
+//                .disabled( !testButtonEnabled )
+//
+//
+//            }
+//
+//        }
 
     }
-    
-
-    private func runTest()
-    {
-        print( "\n\n\n start test" )
-        /** @TODO:  put secrets in the env file.  */
-        @Environment(\.openURL) var openURL
-
-        testButtonTitle = "pressed"
-        schwabClient.getAuthenticationUrl
-        { (result : Result< URL, ErrorCodes>) in
-
-            switch result
-            {
-                case .success( let url ):
-                    print( "authenticated" )
-                    testButtonEnabled = false
-                    authenticateButtonEnabled = true
-                    authenticateButtonTitle = "Authenticated"
-                    authenticateButtonUrl = url
-                    openURL( url )
-                case .failure(let error):
-                    print("Authentication failed: \(error)")
-            }
-
-        }
-
-        print( "\n end test \n\n\n" )
-
-    }
+//    
+//
+//    private func runTest()
+//    {
+//        print( "\n\n\n start test" )
+//        /** @TODO:  put secrets in the env file.  */
+//        @Environment(\.openURL) var openURL
+//
+//        testButtonTitle = "pressed"
+//        schwabClient.getAuthenticationUrl
+//        { (result : Result< URL, ErrorCodes>) in
+//
+//            switch result
+//            {
+//                case .success( let url ):
+//                    print( "authenticated" )
+//                    testButtonEnabled = false
+//                    authenticateButtonEnabled = true
+//                    authenticateButtonTitle = "Authenticated"
+//                    authenticateButtonUrl = url
+//                    openURL( url )
+//                case .failure(let error):
+//                    print("Authentication failed: \(error)")
+//            }
+//
+//        }
+//
+//        print( "\n end test \n\n\n" )
+//
+//    }
     
 }
 

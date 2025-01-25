@@ -13,12 +13,13 @@ import AuthenticationServices
 class SchwabClient
 {
     internal var secrets : Secrets
+    private var accounts : [SapiAccount] = []
     
     init( secrets: Secrets )
     {
         self.secrets = secrets
     }
-    
+
     /**
      * getAuthenticationUrl : Executes the completion with the URL for logging into and authenticating the connection.
      */

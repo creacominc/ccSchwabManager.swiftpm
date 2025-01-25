@@ -1,15 +1,15 @@
 //
 //  Item.swift
-//  ccPositionManager
+//  ccSchwabManager
 //
 //  Created by Harold Tomlinson on 2024-12-21.
 //
 
 import Foundation
-import SwiftData
+//import SwiftData
 
-@Model
-final class Account
+//@Model
+final class SapiAccount
 {
 
     private var m_accountNumber: String

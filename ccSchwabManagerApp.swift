@@ -1,12 +1,12 @@
 //
-//  ccPositionManagerApp.swift
-//  ccPositionManager
+//  ccSchwabManagerApp.swift
+//  ccSchwabManager
 //
 //  Created by Harold Tomlinson on 2024-12-21.
 //
 
 import SwiftUI
-import SwiftData
+//import SwiftData
 
 @main
 struct ccSchwabManagerApp: App
