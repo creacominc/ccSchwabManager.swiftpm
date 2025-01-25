@@ -1,4 +1,4 @@
 # ccSchwabManager
 Schwab Investment Manager in a swift playground
 
-Test update of git repo.
+- added files from prior project into swift playground

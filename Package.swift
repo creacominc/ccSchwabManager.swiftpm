@@ -10,6 +10,7 @@ import AppleProductTypes
 let package = Package(
     name: "ccSchwabManager",
     platforms: [
+        .macOS("10.15"),
         .iOS("17.5")
     ],
     products: [
@@ -29,7 +30,11 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
-            ]
+            ],
+            capabilities: [
+                .outgoingNetworkConnections()
+            ],
+            appCategory: .finance
         )
     ],
     targets: [
