@@ -26,10 +26,7 @@ struct TestUI: View
             QuotesTestView( schwabClient: schwabClient )
                 .padding()
         }
-        
     }
-
-    
 }
 
 

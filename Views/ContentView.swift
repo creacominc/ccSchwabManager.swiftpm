@@ -36,6 +36,7 @@ struct ContentView: View
         {
             WorkflowButtonsView()
             AccountsView(schwabClient: self.schwabClient)
+            SecurityListView()
         }
 
 
@@ -43,10 +44,13 @@ struct ContentView: View
 
 }
 
-//#Preview
-//{
-//    let schwabClient : SchwabClient = SchwabClient( secrets: getSecretsFromFile() )
-//
+#Preview
+{
+    let schwabClient : SchwabClient = SchwabClient( secrets: getSecretsFromFile() )
+
+    // fake accounts information for preview
+    schwabClient.secrets.accountNumbers = ["*7890", "*6789"]
+
 //    let positionConfig = ModelConfiguration(isStoredInMemoryOnly: true)
 //    let accountConfig = ModelConfiguration(isStoredInMemoryOnly: true)
 //    var container : ModelContainer
@@ -54,8 +58,10 @@ struct ContentView: View
 //    do
 //    {
 //        container = try ModelContainer(
-//            for: Position.self, Account.self
-//            , configurations: positionConfig, accountConfig
+//            for: SapiPosition.self,
+//                    SapiAccount.self
+//            , configurations: positionConfig,
+//                                accountConfig
 //        )
 //    }
 //    catch
@@ -65,13 +71,13 @@ struct ContentView: View
 //
 //    for i in 1..<10
 //    {
-//        let position = Position(symbol: "Sym\(i)", averagePrice: Double(i) )
+//        let position = SapiPosition(symbol: "Sym\(i)", averagePrice: Double(i) )
 //        container.mainContext.insert( position )
-//        let account = Account(accountNumber: "100\(i)")
+//        let account = SapiAccount(accountNumber: "100\(i)")
 //        container.mainContext.insert( account )
 //    }
-//
-//    return ContentView( schwabClient : schwabClient )
+
+    return ContentView( schwabClient : schwabClient )
 //        .modelContainer( container )
-//
-//}
+
+}

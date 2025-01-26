@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Position
+final class SapiPosition
 {
 
     private var m_symbol: String
@@ -53,12 +53,3 @@ final class Position
 
 }
 
-
-
-
-/**
- 
-
- 
- 
- */

@@ -30,19 +30,8 @@ struct WorkflowButtonsView: View
     }
 }
 
-//#Preview
-//{
-//
-//    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-//    let container = try! ModelContainer(for: Account.self, configurations: config)
-//
-//    for i in 1..<5 {
-//        let account = Account( accountNumber: "10\(i)" )
-//        container.mainContext.insert( account )
-//    }
-//
-//    return WorkflowButtonsView()
-//        .modelContainer(container)
-//
-//}
-//
+#Preview
+{
+    return WorkflowButtonsView()
+}
+

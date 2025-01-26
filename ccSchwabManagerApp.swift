@@ -48,10 +48,8 @@ struct ccSchwabManagerApp: App
         {
             ContentView( schwabClient: schwabClient )
         }
-        .modelContainer( for: Position.self )
+        .modelContainer( for: SapiPosition.self )
     }
-    
-    
-    
-    
 }
+
+

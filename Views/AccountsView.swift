@@ -27,7 +27,15 @@ struct AccountsView: View
                 Text( account ).tag( account )
             }
         }
-        .pickerStyle( .menu )
-        .onAppear { selectedAccountName = "All" }
+        .pickerStyle( .segmented )
+        .onAppear { selectedAccountName = "All" } /** @TODO:  add this to secrets for persistance. */
     }
+}
+
+#Preview
+{
+    let schwabClient : SchwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    schwabClient.secrets.accountNumbers = ["*7890", "*6789"]
+
+    return AccountsView( schwabClient: schwabClient )
 }

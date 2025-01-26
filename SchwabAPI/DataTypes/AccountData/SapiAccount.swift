@@ -6,9 +6,9 @@
 //
 
 import Foundation
-//import SwiftData
+import SwiftData
 
-//@Model
+@Model
 final class SapiAccount
 {
 
@@ -44,9 +44,3 @@ final class SapiAccount
     }
 
 }
-
-/**
- 
-
- 
- */

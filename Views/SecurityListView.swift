@@ -10,7 +10,7 @@ import SwiftData
 
 struct SecurityListView: View
 {
-    @Query private var positions: [Position]
+    @Query private var positions: [SapiPosition]
     @Environment(\.modelContext) private var context
 
     var body: some View
@@ -27,17 +27,17 @@ struct SecurityListView: View
 
 }
 
-//#Preview
-//{
-//    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-//    let container = try! ModelContainer(for: Position.self, configurations: config)
-//
-//    for i in 1..<8 {
-//        let position = Position(symbol: "Sym\(i)", averagePrice: Double(i) )
-//        container.mainContext.insert( position )
-//    }
-//
-//    return SecurityListView()
-//        .modelContainer(container)
-//
-//}
+#Preview
+{
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SapiPosition.self, configurations: config)
+
+    for i in 1..<8 {
+        let position = SapiPosition(symbol: "Sym\(i)", averagePrice: Double(i) )
+        container.mainContext.insert( position )
+    }
+
+    return SecurityListView()
+        .modelContainer(container)
+
+}

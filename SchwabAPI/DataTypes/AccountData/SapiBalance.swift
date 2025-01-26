@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Balance
+final class SapiBalance
 {
     
     private var accruedInterest: Double = 0.0
@@ -51,7 +51,3 @@ final class Balance
     
 }
 
-
-/**
-
- */
