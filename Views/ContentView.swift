@@ -38,7 +38,7 @@ struct ContentView: View
             switch appState 
             {
             case AppState.Initial:
-                SecretsTestView( schwabClient: self.schwabClient, appState: $appState )
+                SecretsView( schwabClient: self.schwabClient, appState: $appState )
 
 
             case AppState.Working:
@@ -48,6 +48,11 @@ struct ContentView: View
 
             default:
                Text( " 123")    
+            }
+            // put a reset button at the bottom - will likely remova later
+            Button( "reset" )
+            {
+                appState = .Initial
             }
         }
     }

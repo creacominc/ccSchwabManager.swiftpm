@@ -1,0 +1,39 @@
+//
+//  TestUI.swift
+//  ccSchwabManager
+//
+//  Created by Harold Tomlinson on 2025-01-10.
+//
+
+import SwiftUI
+
+struct TestUI: View
+{
+    @State private var schwabClient: SchwabClient
+
+    init( schwabClient: SchwabClient )
+    {
+        self.schwabClient = schwabClient
+    }
+
+    var body: some View
+    {
+        VStack {
+//            SecretsView( schwabClient: schwabClient )
+//                .padding()
+            AuthorizeTestView( schwabClient: schwabClient )
+                .padding()
+            QuotesTestView( schwabClient: schwabClient )
+                .padding()
+        }
+    }
+}
+
+
+
+#Preview
+{
+    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    return TestUI( schwabClient : schwabClient )
+}
+
