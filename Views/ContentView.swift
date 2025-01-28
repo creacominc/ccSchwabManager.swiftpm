@@ -16,7 +16,8 @@ struct ContentView: View
 
     @Environment(\.modelContext) private var context
 
-    @State private var appState : AppState = AppState.allCases.first!
+    @State private var appState : AppState = .Initial
+
 //    @State private var workflowEnum : WorkflowEnum = WorkflowEnum.allCases.first!
 //    @State private var testButtonTitle : String = "Test"
 //    @State private var testButtonEnabled : Bool = false
@@ -37,7 +38,7 @@ struct ContentView: View
             switch appState 
             {
             case AppState.Initial:
-                SecretsTestView( schwabClient: self.schwabClient )
+                SecretsTestView( schwabClient: self.schwabClient, appState: $appState )
 
 
             case AppState.Working:

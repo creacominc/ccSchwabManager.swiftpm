@@ -14,6 +14,7 @@ struct SecretsTestView: View
     @Environment(\.dismiss) var dismiss
 
     @State private var schwabClient : SchwabClient
+    @Binding var appState: AppState
 
     init( schwabClient: SchwabClient )
     {
@@ -70,6 +71,7 @@ struct SecretsTestView: View
                     try data.write( to: fileURL )
                     dismiss()
                     print( "done" )
+                    appState = .Working
                 } catch {
                     print("Error saving JSON: \(error)")
                 }
