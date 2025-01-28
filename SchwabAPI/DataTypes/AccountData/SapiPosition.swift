@@ -50,6 +50,10 @@ final class SapiPosition
         return m_symbol
     }
 
+    public func avgPrice() -> Double
+    {
+        return m_averagePrice
+    }
 
 }
 

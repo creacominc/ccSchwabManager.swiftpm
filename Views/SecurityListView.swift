@@ -20,6 +20,7 @@ struct SecurityListView: View
         { position in
             HStack {
                 Text( position.symbol() )
+                Text( String( format: "%0.2f", position.avgPrice() ) )
             }
         }
 

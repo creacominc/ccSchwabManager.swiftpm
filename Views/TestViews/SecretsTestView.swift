@@ -11,6 +11,8 @@ import SwiftUI
 
 struct SecretsTestView: View
 {
+    @Environment(\.dismiss) var dismiss
+
     @State private var schwabClient : SchwabClient
 
     init( schwabClient: SchwabClient )
@@ -66,6 +68,8 @@ struct SecretsTestView: View
                     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                     let fileURL = documentsDirectory.appendingPathComponent(".secrets.json")
                     try data.write( to: fileURL )
+                    dismiss()
+                    print( "done" )
                 } catch {
                     print("Error saving JSON: \(error)")
                 }

@@ -34,12 +34,21 @@ struct ContentView: View
 
         VStack
         {
-            WorkflowButtonsView()
-            AccountsView(schwabClient: self.schwabClient)
-            SecurityListView()
+            switch appState 
+            {
+            case AppState.Initial:
+                SecretsTestView( schwabClient: self.schwabClient )
+
+
+            case AppState.Working:
+                WorkflowButtonsView()
+                AccountsView( schwabClient: self.schwabClient )
+                SecurityListView()
+
+            default:
+               Text( " 123")    
+            }
         }
-
-
     }
 
 }
@@ -51,33 +60,16 @@ struct ContentView: View
     // fake accounts information for preview
     schwabClient.secrets.accountNumbers = ["*7890", "*6789"]
 
-//    let positionConfig = ModelConfiguration(isStoredInMemoryOnly: true)
-//    let accountConfig = ModelConfiguration(isStoredInMemoryOnly: true)
-//    var container : ModelContainer
-//
-//    do
-//    {
-//        container = try ModelContainer(
-//            for: SapiPosition.self,
-//                    SapiAccount.self
-//            , configurations: positionConfig,
-//                                accountConfig
-//        )
-//    }
-//    catch
-//    {
-//        fatalError("Failed to configure SwiftData container.")
-//    }
-//
-//    for i in 1..<10
-//    {
-//        let position = SapiPosition(symbol: "Sym\(i)", averagePrice: Double(i) )
-//        container.mainContext.insert( position )
-//        let account = SapiAccount(accountNumber: "100\(i)")
-//        container.mainContext.insert( account )
-//    }
+    // fake account list
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SapiPosition.self, configurations: config)
+    let sampleHoldings : [String] = [ "AAPL", "GOLD", "ACHR", "AVGO", "NVDA", "SOUN", "RKLB", "NNE" ]
+    for i in 1..<8 {
+        let position = SapiPosition(symbol: sampleHoldings[i], averagePrice: Double(i) )
+        container.mainContext.insert( position )
+    }
 
     return ContentView( schwabClient : schwabClient )
-//        .modelContainer( container )
+        .modelContainer( container )
 
 }
