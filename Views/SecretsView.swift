@@ -1,5 +1,5 @@
 //
-//  SecretsTestView.swift
+//  SecretsView.swift
 //  ccSchwabManager
 //
 //  Created by Harold Tomlinson on 2025-01-10.
@@ -9,16 +9,17 @@ import SwiftUI
 
 
 
-struct SecretsTestView: View
+struct SecretsView: View
 {
     @Environment(\.dismiss) var dismiss
 
     @State private var schwabClient : SchwabClient
     @Binding var appState: AppState
 
-    init( schwabClient: SchwabClient )
+    init( schwabClient: SchwabClient, appState: Binding<AppState> )
     {
         self.schwabClient = schwabClient
+        self._appState = appState
     }
 
     var body: some View
@@ -29,16 +30,22 @@ struct SecretsTestView: View
             {
                 Text( "App Key: " )
                 TextField( "App Key", text: $schwabClient.secrets.appId )
+                    .autocorrectionDisabled()
+                    .autocapitalization( .none )
             }
             HStack
             {
                 Text( "App Secret: " )
                 TextField( "App Secret", text: $schwabClient.secrets.appSecret )
+                    .autocorrectionDisabled()
+                    .autocapitalization( .none )
             }
             HStack
             {
                 Text( "Redirect URL: " )
                 TextField( "Redirect URL", text: $schwabClient.secrets.redirectUrl )
+                    .autocorrectionDisabled()
+                    .autocapitalization( .none )
             }
 //            HStack
 //            {
@@ -83,6 +90,8 @@ struct SecretsTestView: View
 
 #Preview
 {
+    @Previewable @State  var appState : AppState = .Initial
+
     let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
-    return SecretsTestView( schwabClient : schwabClient )
+    return SecretsView( schwabClient : schwabClient, appState : $appState )
 }
