@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct SecretsView: View
 {
     @Environment(\.dismiss) var dismiss
@@ -29,14 +27,14 @@ struct SecretsView: View
             HStack
             {
                 Text( "App Key: " )
-                TextField( "App Key", text: $schwabClient.secrets.appId )
+                SecureField( "App Key", text: $schwabClient.secrets.appId )
                     .autocorrectionDisabled()
                     .autocapitalization( .none )
             }
             HStack
             {
                 Text( "App Secret: " )
-                TextField( "App Secret", text: $schwabClient.secrets.appSecret )
+                SecureField( "App Secret", text: $schwabClient.secrets.appSecret )
                     .autocorrectionDisabled()
                     .autocapitalization( .none )
             }
@@ -70,19 +68,19 @@ struct SecretsView: View
 
             Button( "Save Secrets" )
             {
-                // print( schwabClient.secrets )
-                do {
-                    let data = try JSONEncoder().encode( schwabClient.secrets )
-                    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                    let fileURL = documentsDirectory.appendingPathComponent(".secrets.json")
-                    try data.write( to: fileURL )
-                    dismiss()
-                    print( "done" )
-                    appState = .Working
-                } catch {
-                    print("Error saving JSON: \(error)")
-                }
+                storeSecrets( secrets: schwabClient.secrets )
+                print( "saved" )
+                appState = .Authorizing
+                dismiss()
             }
+            Button( "Load Secrets" )
+            {
+                var secrets : Secrets = loadSecrets()
+                print( "loaded" )
+                appState = .Initial
+                dismiss()
+            }
+
         }
     }
 
@@ -90,8 +88,8 @@ struct SecretsView: View
 
 #Preview
 {
-    @Previewable @State  var appState : AppState = .Initial
-
-    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    @Previewable
+    @State  var appState : AppState = .Initial
+    let schwabClient = SchwabClient( secrets: loadSecrets() )
     return SecretsView( schwabClient : schwabClient, appState : $appState )
 }

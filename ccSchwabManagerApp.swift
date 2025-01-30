@@ -11,11 +11,10 @@ import SwiftUI
 @main
 struct ccSchwabManagerApp: App
 {
-    
-    private var schwabClient : SchwabClient = SchwabClient( secrets: getSecretsFromFile() )
-    
-    
-    
+    @State private var appState : AppState = .Initial
+    private var schwabClient : SchwabClient = SchwabClient( secrets: loadSecrets() )
+
+
     //    var sharedModelContainer: ModelContainer =
     //    {
     //        let schema = Schema([
@@ -46,7 +45,8 @@ struct ccSchwabManagerApp: App
     {
         WindowGroup
         {
-            ContentView( schwabClient: schwabClient )
+            SecretsView(schwabClient: schwabClient, appState: $appState)
+            //ContentView( schwabClient: schwabClient )
         }
         .modelContainer( for: SapiPosition.self )
     }

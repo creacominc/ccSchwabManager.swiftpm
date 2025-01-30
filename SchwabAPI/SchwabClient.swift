@@ -71,6 +71,7 @@ class SchwabClient
         { data, response, error in
             guard let data = data, error == nil else {
                 print( "Error: \( error?.localizedDescription ?? "Unknown error" )" )
+                completion(.failure(ErrorCodes.notAuthenticated))
                 return
             }
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200
@@ -82,11 +83,14 @@ class SchwabClient
                     //                    print( "AccessToken = \(self.secrets.accessToken)" )
                     //                    print( "RefreshToken = \(self.secrets.refreshToken)" )
                     self.fetchAccountNumbers()
+                    self.fetchData()
                 } else {
                     print( "Failed to parse token response" )
+                    completion(.failure(ErrorCodes.notAuthenticated))
                 }
             } else {
                 print( "Failed to get token" )
+                completion(.failure(ErrorCodes.notAuthenticated))
             }
         }.resume()
         
@@ -188,7 +192,10 @@ class SchwabClient
     {
     }
     
-    
+    func fetchData()
+    {
+        print( "TBD:  fetching data" )
+    }
     
 }
 

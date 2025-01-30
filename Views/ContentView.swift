@@ -40,11 +40,17 @@ struct ContentView: View
             case AppState.Initial:
                 SecretsView( schwabClient: self.schwabClient, appState: $appState )
 
+            case AppState.Authorizing:
+                AuthorizeView( schwabClient: self.schwabClient, appState: $appState )
 
             case AppState.Working:
                 WorkflowButtonsView()
                 AccountsView( schwabClient: self.schwabClient )
                 SecurityListView()
+
+//            case AppState.FetchData:
+//                self.schwabClient.fetchData()
+
 
             default:
                Text( " 123")    
@@ -61,7 +67,7 @@ struct ContentView: View
 
 #Preview
 {
-    let schwabClient : SchwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    let schwabClient : SchwabClient = SchwabClient( secrets: loadSecrets() )
 
     // fake accounts information for preview
     schwabClient.secrets.accountNumbers = ["*7890", "*6789"]

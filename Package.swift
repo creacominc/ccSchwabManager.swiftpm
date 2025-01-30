@@ -17,6 +17,7 @@ let package = Package(
         .iOSApplication(
             name: "ccSchwabManager",
             targets: ["AppModule"],
+            teamIdentifier: "QGK825656P",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .calculator),

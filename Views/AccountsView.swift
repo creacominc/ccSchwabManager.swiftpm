@@ -34,8 +34,7 @@ struct AccountsView: View
 
 #Preview
 {
-    let schwabClient : SchwabClient = SchwabClient( secrets: getSecretsFromFile() )
+    let schwabClient : SchwabClient = SchwabClient( secrets: loadSecrets() )
     schwabClient.secrets.accountNumbers = ["*7890", "*6789"]
-
     return AccountsView( schwabClient: schwabClient )
 }

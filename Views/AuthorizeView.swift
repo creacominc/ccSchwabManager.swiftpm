@@ -1,5 +1,5 @@
 //
-//  AuthorizeTestView.swift
+//  AuthorizeView.swift
 //  ccSchwabManager
 //
 //  Created by Harold Tomlinson on 2025-01-10.
@@ -7,9 +7,14 @@
 
 import SwiftUI
 
-struct AuthorizeTestView: View
+struct AuthorizeView: View
 {
-    private var schwabClient: SchwabClient
+    @Environment(\.dismiss) var dismiss
+
+    @State private var schwabClient : SchwabClient
+    @Binding var appState: AppState
+
+    @State var foo: String = ""
 
     @State private var resultantUrl: String = ""
     @State private var authenticateButtonUrl: URL = URL( string: "https://localhost" )!
@@ -17,9 +22,10 @@ struct AuthorizeTestView: View
     @State private var authenticateButtonTitle: String = "Click to Authorize"
     @State private var nextButtonEnabled: Bool = false
 
-    init( schwabClient: SchwabClient )
+    init( schwabClient: SchwabClient, appState: Binding<AppState> )
     {
         self.schwabClient = schwabClient
+        self._appState = appState
     }
 
     var body: some View
@@ -50,11 +56,13 @@ struct AuthorizeTestView: View
             }
 
             TextField( "After authorization, paste URL here.", text: $resultantUrl )
-            .onChange( of: resultantUrl )
-            {
-                print( "OnChange URL: \( resultantUrl )" )
-                nextButtonEnabled = true
-            }
+                .autocorrectionDisabled()
+                .autocapitalization(.none)
+                .onChange( of: resultantUrl )
+                {
+                    print( "OnChange URL: \( resultantUrl )" )
+                    nextButtonEnabled = true
+                }
 
             Button( "Next" )
             {
@@ -63,10 +71,12 @@ struct AuthorizeTestView: View
                     switch result
                     {
                     case .success( ):
-                        print( "worked?" )
+                        appState = AppState.Working
                     case .failure(let error):
-                        print("Authenticate error: \(error)")
-                        print( error.localizedDescription )
+                        print("getAccessToken error: \(error)")
+                        print("getAccessToken localized error: \(error.localizedDescription)")
+                        appState = AppState.Working  /** @TODO:  REMOVE - authorization failed. */
+                        print( "!!!! REMOVE - authorization failed but marking app as working to enable further development." )
                     }
                 }
             }
@@ -78,6 +88,8 @@ struct AuthorizeTestView: View
 
 #Preview
 {
-    let schwabClient = SchwabClient( secrets: getSecretsFromFile() )
-    return AuthorizeTestView( schwabClient : schwabClient )
+    @Previewable  
+    @State  var appState : AppState = .Initial
+    let schwabClient = SchwabClient( secrets: loadSecrets() )
+    return AuthorizeView( schwabClient : schwabClient, appState : $appState )
 }
